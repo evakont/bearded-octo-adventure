@@ -1,8 +1,10 @@
 package com.eva.bearded_octo_adventure;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.Menu;
+import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -10,6 +12,14 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		Typeface font = Typeface.createFromAsset(getAssets(), "Kankin.ttf");  
+		TextView titleView = (TextView) findViewById(R.id.textView1); 
+		titleView.setTypeface(font);
+		 
+		TextView subTitleView = (TextView) findViewById(R.id.textView3); 
+		subTitleView.setTypeface(font);
+		
 	}
 
 	@Override

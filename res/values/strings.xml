@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">bearded-octo-adventure</string>
+    <string name="app_name">octo adventure</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
-
+    
+    <string name="tile">Octo Adventure</string>
+	<string name="sub_tile">Octopuses in Danger</string>
+    
 </resources>
