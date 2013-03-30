@@ -243,8 +243,10 @@ containing a value of this type.
         public static final int default_gap=0x7f050000;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int octopus92=0x7f020001;
+        public static final int back=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int octopus92=0x7f020002;
+        public static final int shark=0x7f020003;
     }
     public static final class id {
         public static final int LinearLayout1=0x7f040012;
@@ -252,6 +254,7 @@ containing a value of this type.
         public static final int alignBounds=0x7f040002;
         public static final int alignMargins=0x7f040003;
         public static final int bottom=0x7f040005;
+        public static final int button1=0x7f040015;
         public static final int center=0x7f04000c;
         public static final int center_horizontal=0x7f04000a;
         public static final int center_vertical=0x7f040008;
@@ -266,13 +269,15 @@ containing a value of this type.
         public static final int right=0x7f040007;
         public static final int start=0x7f040010;
         public static final int textView1=0x7f040013;
-        public static final int textView2=0x7f040015;
         public static final int textView3=0x7f040014;
         public static final int top=0x7f040004;
         public static final int vertical=0x7f040001;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
+        public static final int tab1=0x7f030001;
+        public static final int tab2=0x7f030002;
+        public static final int tab3=0x7f030003;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -281,6 +286,9 @@ containing a value of this type.
         public static final int action_settings=0x7f070001;
         public static final int app_name=0x7f070000;
         public static final int sub_tile=0x7f070003;
+        public static final int tab1=0x7f070004;
+        public static final int tab2=0x7f070005;
+        public static final int tab3=0x7f070006;
         public static final int tile=0x7f070002;
     }
     public static final class style {

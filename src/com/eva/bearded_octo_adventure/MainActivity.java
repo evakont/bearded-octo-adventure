@@ -1,9 +1,11 @@
 package com.eva.bearded_octo_adventure;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
@@ -19,14 +21,21 @@ public class MainActivity extends Activity {
 		 
 		TextView subTitleView = (TextView) findViewById(R.id.textView3); 
 		subTitleView.setTypeface(font);
-		
+		       
 	}
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	public void play(View view){
+		Intent i = new Intent(this, game.class);
+		startActivity(i);
 	}
 
 }

@@ -6,5 +6,9 @@
     
     <string name="tile">Octo Adventure</string>
 	<string name="sub_tile">Octopuses in Danger</string>
+	
+	<string name="tab1">keimeno gia to tab 1</string>
+	<string name="tab2">keimeno gia to tab 2</string>
+	<string name="tab3">keimeno gia to tab 3</string>
     
 </resources>
