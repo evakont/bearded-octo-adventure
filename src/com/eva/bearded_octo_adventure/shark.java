@@ -1,6 +1,7 @@
 package com.eva.bearded_octo_adventure;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
@@ -23,6 +24,10 @@ public class shark {
 		this.speed = new Speed(dx, dy);
 	}
 	
+	public shark(){
+		
+	}
+	
 	public Bitmap getBitmap() {
 		return bitmap;
 	}
@@ -42,6 +47,11 @@ public class shark {
 		this.y = y;
 	}
 
+	public void setDir(int dx, int dy){
+		this.dx = dx;
+		this.dy = dy;
+	}
+	
 	public boolean isTouched() {
 		return touched;
 	}
@@ -62,6 +72,11 @@ public class shark {
 		canvas.drawBitmap(bitmap, x - (bitmap.getWidth() / 2), y - (bitmap.getHeight() / 2), null);
 	}
 
+	public shark destroy(shark shark){
+		shark = null;
+		return shark;
+	}
+	
 	/**
 	 * Method which updates the droid's internal state every tick
 	 */

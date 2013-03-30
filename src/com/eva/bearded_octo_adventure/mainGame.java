@@ -1,7 +1,9 @@
 package com.eva.bearded_octo_adventure;
 
-import android.app.Activity;
+import java.util.ArrayList;
+
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,30 +18,32 @@ private static final String TAG = mainGame.class.getSimpleName();
 	
 	private MainThread thread;
 	private shark shark;
-	private shark shark2;
+	private shark shark2;private shark shark3;
 	
-	public static octo octo;
+	private boolean isAlive;
 
+	public ArrayList <shark> octoList;
+	
 	public mainGame(Context context) {
 		super(context);
 		// adding the callback (this) to the surface holder to intercept events
 		getHolder().addCallback(this);
 		
-		
-		
-		// create shark and load bitmap                                              x cord ,  y cord
-		
-		octo = new octo(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 500, 500);		
-		
+		shark3 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos() , getRandomX(), getRandomY());		
 
 		
+		// create shark and load bitmap                                              x cord ,  y cord	
+		shark = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos() , getRandomX(), getRandomY());		
+		shark2 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos(), getRandomX(), getRandomY());
 		
-		shark = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.shark), 50, getRandomBegingPos() , getRandomX(), getRandomY());		
-		shark2 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.shark), 50, getRandomBegingPos(), getRandomX(), getRandomY());
-		System.out.println(getRandomBegingPos());
+		// fill the list with the sharks
+		
+		octoList = new ArrayList<shark>();
+		octoList.add(shark);octoList.add(shark2);octoList.add(shark3);
+		
 		// create the game loop thread
 		thread = new MainThread(getHolder(), this);
-		
+		isAlive = true;
 		// make the GamePanel focusable so it can handle events
 		setFocusable(true);
 	}
@@ -77,30 +81,88 @@ private static final String TAG = mainGame.class.getSimpleName();
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		ArrayList <Integer> posX = new ArrayList<Integer>();
+		ArrayList <Integer> posY = new ArrayList<Integer>();
+		
+		posX.add(octoList.get(0).getX());posX.add(octoList.get(1).getX());posX.add(octoList.get(2).getX());
+		posY.add(octoList.get(0).getY());posY.add(octoList.get(1).getY());posY.add(octoList.get(2).getY());
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			// delegating event handling to the droid
-			octo.handleActionDown((int)event.getX(), (int)event.getY());
+//			Log.w("x tou xtapodioy", String.valueOf(shark.getX()));
+//			Log.w("y tou xtapodioy", String.valueOf(shark.getY()));
+//			Log.w("x pou patisa", String.valueOf(event.getX()));
+//			Log.w("y pou patisa", String.valueOf(event.getY()));
 			
-			// check if in the lower part of the screen we exit
-			if (event.getY() > getHeight() - 50) {
-				thread.setRunning(false);
-				((Activity)getContext()).finish();
-			} else {
-				Log.d(TAG, "Coords: x=" + event.getX() + ",y=" + event.getY());
+//			@SuppressWarnings("unused")
+//			int eventX = (int) event.getX(); 
+//			@SuppressWarnings("unused")
+//			int eventY = (int) event.getY();
+//			int xtapodiX = shark3.getX();
+//			int xtapodiY = shark3.getY();
+//			@SuppressWarnings("unused")
+//			int prosXtapX = (int) (shark3.getX()+(0.05*shark3.getX())); 
+//			int prosXtapXneg = (int) (shark3.getX()+((-1)*0.05*shark3.getX())); 
+//			int prosXtapY = (int) (shark3.getY()+(0.05*shark3.getY()));
+//			int prosXtapYneg = (int) (shark3.getX()+((-1)*0.05*shark3.getX()));
+			
+			
+			
+			
+			
+			
+			for(int i = 0; i < octoList.size(); i++){
+				//octoList.get(i).handleActionDown((int)event.getX(), (int)event.getY());
+				if((  (int) event.getX() <= posX.get(i)+50 &&  (int) event.getX() >= posX.get(i)-50 ) && ( (int) event.getY() <= posY.get(i)+50   &&  (int) event.getY() > posY.get(i)-50 )){
+					octoList.get(i).setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.splashredsmall));
+				}
 			}
-		} if (event.getAction() == MotionEvent.ACTION_MOVE) {
-			// the gestures
-			if (octo.isTouched()) {
-				// the droid was picked up and is being dragged
-				octo.setX((int)event.getX());
-				octo.setY((int)event.getY());
-			}
-		} if (event.getAction() == MotionEvent.ACTION_UP) {
-			// touch was released
-			if (octo.isTouched()) {
-				octo.setTouched(false);
-			}
+//			thread.setRunning(false);
+//			((Activity)getContext()).finish();
+			posX.clear();
+			posY.clear();
+			
+			//if((  (int) event.getX() <= shark3.getX()+50 &&  (int) event.getX() >= shark3.getX()-50 ) && ( (int) event.getY() <= shark3.getY()+50   &&  (int) event.getY() > shark3.getY()-50 )){
+			//	shark3 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.splashredsmall), (int) event.getX(), (int) event.getY() , 0, 0);
+//				shark2.setTouched(false);
+//				shark3.destroy(shark);
+//				isAlive =  false;
+				
+			//}
+//			if(((int) event.getX() < shark2.getX()+(0.05*shark2.getX()) ||  (int) event.getX() > shark2.getX()+((-1)*0.05*shark2.getX()))  && ( (int) event.getY() < shark2.getY()+(0.05*shark2.getY()) ||  (int) event.getY() > shark2.getY()+((-1)*0.05*shark2.getY()) ) ){
+//				shark2 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.splashredsmall), (int) event.getX(), (int) event.getY() , 0, 0);
+//				shark.setTouched(false);
+//				shark2.destroy(shark2);
+//				isAlive =  false;
+//			}
+//			if(shark3.getX() == (int) event.getX() && shark3.getY() == (int) event.getY()){
+//				shark3 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.splashredsmall), (int) event.getX(), (int) event.getY() , 0, 0);
+//			}
+//			shark.handleActionDown((int)event.getX(), (int)event.getY());
+//			shark = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.splashredsmall), (int) event.getX(), (int) event.getY() , 0, 0);
 		}
+		
+//		if (event.getAction() == MotionEvent.ACTION_MOVE) {
+//			// the gestures
+//			
+//			for(int i = 0; i < octoList.size(); i++){
+//				if (octoList.get(i).isTouched()) {
+//					// the droid was picked up and is being dragged
+//					octoList.get(i).setX((int)event.getX());
+//					octoList.get(i).setY((int)event.getY());
+//				}
+//			}
+//		}
+		if (event.getAction() == MotionEvent.ACTION_UP) {
+			// touch was released
+			for(int i = 0; i < octoList.size(); i++){
+				if((  (int) event.getX() <= posX.get(i)+50 &&  (int) event.getX() >= posX.get(i)-50 ) && ( (int) event.getY() <= posY.get(i)+50   &&  (int) event.getY() > posY.get(i)-50 )){
+					octoList.get(i).setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.splashredsmall));
+				}
+			}
+			posX.clear();
+			posY.clear();
+		}
+		posX.clear();
+		posY.clear();
 	return true;
 	}
 
@@ -110,68 +172,78 @@ private static final String TAG = mainGame.class.getSimpleName();
 //		Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.back);
 //		canvas.drawBitmap(bitmap, 0, 0, null);
 		canvas.drawColor(Color.BLACK);
-		shark.draw(canvas);
-		shark2.draw(canvas);
-		octo.draw(canvas);
+		for(int i = 0; i < octoList.size(); i++){
+			octoList.get(i).draw(canvas);
+		}
 	}
 
 		public void update() {
-//			// check collision with right wall if heading right
-//			if (shark.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
-//					&& shark.getX() + shark.getBitmap().getWidth() / 2 >= getWidth()) {
-//				shark.getSpeed().toggleXDirection();
-//	//			shark.getSpeed().setxDirection(0);
-//			}
-//			// check collision with left wall if heading left
-//			if (shark.getSpeed().getxDirection() == Speed.DIRECTION_LEFT
-//					&& shark.getX() - shark.getBitmap().getWidth() / 2 <= 0) {
-//				shark.getSpeed().toggleXDirection();
-//	//			shark.getSpeed().setxDirection(0);
-//			}
-//			// check collision with bottom wall if heading down
-//			if (shark.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
-//					&& shark.getY() + shark.getBitmap().getHeight() / 2 >= getHeight()) {
-//				shark.getSpeed().toggleYDirection();
-//	//			shark.getSpeed().setyDirection(0);
-//			}
-//			// check collision with top wall if heading up
-//			if (shark.getSpeed().getyDirection() == Speed.DIRECTION_UP
-//					&& shark.getY() - shark.getBitmap().getHeight() / 2 <= 0) {
-//				shark.getSpeed().toggleYDirection();
-//	//			shark.getSpeed().setyDirection(0);
-//			}
-
-			
 			//	Update the shark
-			
-			
-			
-			octo = new octo(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), octo.getX(), octo.getY());
-			
-			if(shark.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
-				&& shark.getX() + shark.getBitmap().getWidth() / 2 >= getWidth()){
-				shark = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.shark), 50, getRandomBegingPos() , getRandomX(), getRandomY());
+			shark myShark;
+			if(isAlive){
+				
+				for(int i = 0; i < octoList.size(); i++){
+					if(octoList.get(i).getSpeed().getxDirection() == Speed.DIRECTION_RIGHT && octoList.get(i).getX() + octoList.get(i).getBitmap().getWidth() / 2 >= getWidth()){
+						createNewOcto(i,BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos() , getRandomX(), getRandomY());
+//						myShark =  new shark(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos() , getRandomX(), getRandomY());
+//						octoList.get(i).setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.splashredsmall));
+//						octoList.get(i).setDir(getRandomX(), getRandomY());
+//						octoList.get(i).setY(getRandomBegingPos());
+//						octoList.remove(i);
+//						octoList.add(i, myShark);
+					}
+					
+					if(octoList.get(i).getSpeed().getyDirection() == Speed.DIRECTION_DOWN && octoList.get(i).getY() + octoList.get(i).getBitmap().getHeight() / 2 >= getHeight()){
+						
+						createNewOcto(i,BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos() , getRandomX(), getRandomY());
+
+//						octoList.remove(i);
+						myShark =  new shark(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos() , getRandomX(), getRandomY());
+//						octoList.get(i).setBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.splashredsmall));
+//
+//						octoList.get(i).setDir(getRandomX(), getRandomY());
+//						octoList.get(i).setY(getRandomBegingPos());
+//						octoList.remove(i);
+//						octoList.add(i, myShark);
+					}
+					octoList.get(i).update();
+					
+				}
+				
+				
+				
+//				if(shark.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
+//					&& shark.getX() + shark.getBitmap().getWidth() / 2 >= getWidth()){
+//					shark = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos() , getRandomX(), getRandomY());
+//				}
+//				if(shark.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
+//						&& shark.getY() + shark.getBitmap().getHeight() / 2 >= getHeight()){
+//					shark = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos() , getRandomX(), getRandomY());
+//				}
+//				
+//				if(shark2.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
+//						&& shark2.getX() + shark2.getBitmap().getWidth() / 2 >= getWidth()){
+//						shark2 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos(), getRandomX(), getRandomY());
+//				}
+//				if(shark2.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
+//						&& shark2.getY() + shark2.getBitmap().getHeight() / 2 >= getHeight()){
+//					System.out.println(getRandomBegingPos());
+//					shark2 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.octopus92), 50, getRandomBegingPos() , getRandomX(), getRandomY());
+//				}
+				
+				
+//				shark.update();
+//				shark2.update();shark3.update();
 			}
-			if(shark.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
-					&& shark.getY() + shark.getBitmap().getHeight() / 2 >= getHeight()){
-				shark = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.shark), 50, getRandomBegingPos() , getRandomX(), getRandomY());
-			}
-			
-			if(shark2.getSpeed().getxDirection() == Speed.DIRECTION_RIGHT
-					&& shark2.getX() + shark2.getBitmap().getWidth() / 2 >= getWidth()){
-					shark2 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.shark), 50, getRandomBegingPos(), getRandomX(), getRandomY());
-			}
-			if(shark2.getSpeed().getyDirection() == Speed.DIRECTION_DOWN
-					&& shark2.getY() + shark2.getBitmap().getHeight() / 2 >= getHeight()){
-				System.out.println(getRandomBegingPos());
-				shark2 = new shark(BitmapFactory.decodeResource(getResources(), R.drawable.shark), 50, getRandomBegingPos() , getRandomX(), getRandomY());
-			}
-			shark.update();
-			shark2.update();
-			
-			octo.update();
 		}
 		
+		public void createNewOcto(int i, Bitmap bitmap, int x, int y, int dx, int dy){
+			shark myShark;
+			myShark =  new shark(bitmap, x, y, dx, dy);
+
+			octoList.remove(i);
+			octoList.add(i, myShark);
+		}
 		
 		public int getRandomX(){
 			int randomX;

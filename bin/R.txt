@@ -34,6 +34,7 @@ int drawable back 0x7f020000
 int drawable ic_launcher 0x7f020001
 int drawable octopus92 0x7f020002
 int drawable shark 0x7f020003
+int drawable splashredsmall 0x7f020004
 int id LinearLayout1 0x7f040012
 int id action_settings 0x7f040016
 int id alignBounds 0x7f040002

@@ -43,36 +43,7 @@ public class game extends Activity{
 		Point size = new Point();
 		display.getSize(size);
 		xSize = size.x;
-		ySize = size.y;
-		
-		SensorManager mSensorManager;
-		Sensor mAccelerometer;
-		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-		mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-//		mSensorManager.registerListener(mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-		mSensorManager.registerListener(new SensorEventListener() {
-			
-			@Override
-			public void onSensorChanged(SensorEvent event) {
-				// TODO Auto-generated method stub
-				xAcc = event.values[0];
-			    yAcc = event.values[1];
-			    mainGame.octo.move(event.values[0], event.values[1]);
-			    String pss = String.valueOf(xAcc);
-			    String pff = String.valueOf(yAcc);
-			    Log.w("xtapodia x ", pss);
-			    Log.w("xtapodia y ", pff);
-				
-			}
-			
-			@Override
-			public void onAccuracyChanged(Sensor sensor, int accuracy) {
-				// TODO Auto-generated method stub
-				
-			}
-		}, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-		
-		
+		ySize = size.y;		
 		
 	}
 
